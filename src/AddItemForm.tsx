@@ -6,17 +6,18 @@ type PropsType = {
     addItem: (title: string) => void
 }
 
-function AddItemForm(props: PropsType) {
+const AddItemForm = React.memo((props: PropsType) => {
+    console.log("AddItemForm")
 
     let [itemName, setItemName] = useState("");
     let [error, setError] = useState<string | null>(null)
 
     function onItemNameChanged(e: ChangeEvent<HTMLInputElement>) {
         setItemName(e.currentTarget.value)
-        setError(null)
     }
 
     function onAddItemKeyPressed(e: KeyboardEvent<HTMLInputElement>) {
+        if (error !== null) setError(null)
         if (e.key === "Enter") {
             addItem()
         }
@@ -50,6 +51,6 @@ function AddItemForm(props: PropsType) {
             {/*{error && <div className="error message">{error}</div>}*/}
         </div>
     )
-}
+})
 
 export default AddItemForm;
